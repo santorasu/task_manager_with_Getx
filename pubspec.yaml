@@ -21,6 +21,7 @@ dependencies:
   email_validator: ^3.0.0
   shared_preferences: ^2.5.3
   date_formatter: ^0.0.4
+  get: ^4.7.2
 
 
 dev_dependencies:
