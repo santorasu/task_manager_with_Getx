@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:task_management/data/service/network_client.dart';
 import 'package:task_management/data/utils/urls.dart';
 import 'package:task_management/ui/screens/main_bottom_nav_screen.dart';
@@ -98,7 +100,8 @@ class _AddNewTaskScreenState extends State<AddNewTaskScreen> {
   void _onTapSubmitButton() {
     if (_formKey.currentState!.validate()) {
       _addNewTask();
-      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MainBottomNavScreen()));
+      // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) => MainBottomNavScreen()));
+      Get.to(MainBottomNavScreen());
     }
   }
 
