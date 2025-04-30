@@ -28,7 +28,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
   void initState() {
     super.initState();
     _getAllTaskStatusCount();
-    _loadNewTaskList();
+    _getAllNewTaskList();
   }
 
   @override
@@ -61,7 +61,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
                       return TaskCard(
                         taskStatus: TaskStatus.sNew,
                         taskModel: controller.newTaskList[index],
-                        refreshList: _loadNewTaskList,
+                        refreshList: _getAllNewTaskList,
                       );
                     },
                     separatorBuilder: (context, index) => const SizedBox(height: 8),
@@ -83,7 +83,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const AddNewTaskScreen(),
+        builder: (context) =>  AddNewTaskScreen(),
       ),
     );
   }
@@ -123,7 +123,7 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     setState(() {});
   }
 
-  Future<void> _loadNewTaskList() async {
+  Future<void> _getAllNewTaskList() async {
     final bool isSuccess = await _newTaskController.getNewTaskList();
     if (!isSuccess && _newTaskController.errorMessage != null) {
       showSnackBarMessage(context, _newTaskController.errorMessage!, true);

@@ -161,7 +161,7 @@ final bool isSuccess = await _loginController.login(_emailTEController.text.trim
   void _onTapSignUpButton() {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const RegisterScreen()),
+      MaterialPageRoute(builder: (context) => RegisterScreen()),
     );
   }
 
@@ -169,7 +169,7 @@ final bool isSuccess = await _loginController.login(_emailTEController.text.trim
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ForgotPasswordVerifyEmailScreen(),
+        builder: (context) =>  ForgotPasswordVerifyEmailScreen(),
       ),
     );
   }
