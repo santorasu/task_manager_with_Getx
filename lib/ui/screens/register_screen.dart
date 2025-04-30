@@ -53,7 +53,6 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  // Email TextField
   Widget _buildEmailField() {
     return TextFormField(
       controller: _controller.emailController,
@@ -69,7 +68,6 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  // First Name TextField
   Widget _buildFirstNameField() {
     return TextFormField(
       controller: _controller.firstNameController,
@@ -84,7 +82,6 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  // Last Name TextField
   Widget _buildLastNameField() {
     return TextFormField(
       controller: _controller.lastNameController,
@@ -99,7 +96,6 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  // Phone TextField
   Widget _buildPhoneField() {
     return TextFormField(
       controller: _controller.mobileController,
@@ -119,7 +115,6 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  // Password TextField
   Widget _buildPasswordField() {
     return TextFormField(
       controller: _controller.passwordController,
@@ -133,7 +128,6 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  // Submit Button
   Widget _buildSubmitButton() {
     return Obx(() {
       return Visibility(
@@ -151,7 +145,6 @@ class RegisterScreen extends StatelessWidget {
     });
   }
 
-  // Sign In Redirect
   Widget _buildSignInRedirect() {
     return Center(
       child: RichText(
@@ -177,14 +170,12 @@ class RegisterScreen extends StatelessWidget {
     );
   }
 
-  // On Submit Button Tap
   void _onTapSubmitButton() {
     if (_formKey.currentState!.validate()) {
       _controller.registerUser();
     }
   }
 
-  // On Sign In Button Tap
   void _onTapSignInButton() {
     Get.back();
   }

@@ -48,7 +48,6 @@ class AddNewTaskScreen extends StatelessWidget {
     );
   }
 
-  // Title TextField
   Widget _buildTitleField() {
     return TextFormField(
       controller: _titleTTController,
@@ -63,7 +62,6 @@ class AddNewTaskScreen extends StatelessWidget {
     );
   }
 
-  // Description TextField
   Widget _buildDescriptionField() {
     return TextFormField(
       controller: _descriptionTTController,
@@ -81,7 +79,6 @@ class AddNewTaskScreen extends StatelessWidget {
     );
   }
 
-  // Submit Button
   Widget _buildSubmitButton() {
     return GetBuilder<AddNewTaskController>(
       builder: (controller) {
@@ -101,14 +98,13 @@ class AddNewTaskScreen extends StatelessWidget {
     );
   }
 
-  // Submit Button Action
   void _onTapSubmitButton() {
     if (_formKey.currentState!.validate()) {
       _addNewTaskController.addNewTask(
         _titleTTController.text.trim(),
         _descriptionTTController.text.trim(),
       );
-      Get.to(MainBottomNavScreen()); // Navigate to main screen after successful task addition
+      Get.to(MainBottomNavScreen());
     }
   }
 

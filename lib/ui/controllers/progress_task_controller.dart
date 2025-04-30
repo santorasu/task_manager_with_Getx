@@ -14,12 +14,10 @@ class ProgressTaskController extends GetxController {
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
-  // Called by the screen
   Future<void> getAllProgressTaskList() async {
     await _getAllProgressTaskList();
   }
 
-  // Internal method
   Future<void> _getAllProgressTaskList() async {
     _getProgressTasksInProgress = true;
     update();

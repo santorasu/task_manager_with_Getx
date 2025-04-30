@@ -14,7 +14,6 @@ class CancelledTaskController extends GetxController {
   List<TaskModel> _cancelledTaskList = [];
   List<TaskModel> get cancelledTaskList => _cancelledTaskList;
 
-  // Method to get cancelled tasks
   Future<void> getAllCancelledTaskList() async {
     _getCancelledTasksInProgress = true;
     update();

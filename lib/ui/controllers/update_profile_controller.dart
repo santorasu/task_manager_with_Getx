@@ -10,18 +10,16 @@ import 'package:task_management/ui/widgets/snack_bar_message.dart';
 import 'package:task_management/ui/controllers/auth_controller.dart';
 
 class UpdateProfileController extends GetxController {
-  // Form Controllers
   TextEditingController emailController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  // Form validation state
+
   bool updateProfileInProgress = false;
   XFile? pickedImage;
 
-  // Initialize user data
   void initializeUserData() {
     UserModel userModel = AuthController.userModel!;
     emailController.text = userModel.email;
@@ -30,7 +28,6 @@ class UpdateProfileController extends GetxController {
     mobileController.text = userModel.mobile;
   }
 
-  // Image picker method
   Future<void> pickImage() async {
     final ImagePicker _imagePicker = ImagePicker();
     XFile? image = await _imagePicker.pickImage(source: ImageSource.gallery);
@@ -40,7 +37,6 @@ class UpdateProfileController extends GetxController {
     }
   }
 
-  // Update profile method
   Future<void> updateProfile() async {
     updateProfileInProgress = true;
     update();
@@ -62,7 +58,6 @@ class UpdateProfileController extends GetxController {
       requestBody['photo'] = encodedImage;
     }
 
-    // Send the update request
     NetworkResponse response = await NetworkClient.postRequest(
       url: Urls.updateProfileUrl,
       body: requestBody,
@@ -72,13 +67,11 @@ class UpdateProfileController extends GetxController {
     update();
 
     if (response.isSuccess) {
-      // Update user model with new information
       AuthController.userModel!.firstName = firstNameController.text.trim();
       AuthController.userModel!.lastName = lastNameController.text.trim();
       AuthController.userModel!.mobile = mobileController.text.trim();
-
       showSnackBarMessage(Get.context!, "Profile updated successfully!");
-      Get.offAll(() => const MainBottomNavScreen()); // Navigate to main screen
+      Get.offAll(() => const MainBottomNavScreen());
     } else {
       showSnackBarMessage(Get.context!, response.errorMessage, true);
     }

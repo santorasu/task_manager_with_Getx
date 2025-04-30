@@ -4,7 +4,6 @@ import 'package:task_management/ui/controllers/completed_task_controller.dart';
 import 'package:task_management/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_management/ui/widgets/snack_bar_message.dart';
 import 'package:task_management/ui/widgets/task_card.dart';
-import '../../data/models/task_model.dart';
 
 class CompletedTaskScreen extends StatefulWidget {
   const CompletedTaskScreen({super.key});
@@ -19,7 +18,7 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
   @override
   void initState() {
     super.initState();
-    _loadCompletedTasks();
+    _getAllCompletedTaskList();
   }
 
 
@@ -38,7 +37,7 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
                 return TaskCard(
                   taskStatus: TaskStatus.completed,
                   taskModel: controller.completedTaskList[index],
-                  refreshList: _loadCompletedTasks,
+                  refreshList: _getAllCompletedTaskList,
                 );
               },
               separatorBuilder: (context, index) => const SizedBox(height: 8),
@@ -49,7 +48,7 @@ class _CompletedTaskScreenState extends State<CompletedTaskScreen> {
     );
   }
 
-  void _loadCompletedTasks() async {
+  void _getAllCompletedTaskList() async {
     await _controller.getAllCompletedTaskList();
     if (_controller.errorMessage != null) {
       showSnackBarMessage(context, _controller.errorMessage!, true);

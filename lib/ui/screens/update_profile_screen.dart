@@ -12,7 +12,6 @@ class UpdateProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Initialize user data when the screen is first built
     _controller.initializeUserData();
 
     return Scaffold(

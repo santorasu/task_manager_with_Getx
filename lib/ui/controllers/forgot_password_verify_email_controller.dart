@@ -8,7 +8,6 @@ class ForgotPasswordController extends GetxController {
   var isLoading = false.obs;
   var email = ''.obs;
 
-  // Method to verify the email and navigate to pin verification screen
   Future<void> verifyEmail(String email) async {
     isLoading.value = true;
 
@@ -18,8 +17,8 @@ class ForgotPasswordController extends GetxController {
       NetworkResponse response = await NetworkClient.getRequest(url: url);
 
       if (response.statusCode == 200) {
-        // Navigate to the pin verification screen if the email is valid
         Get.to(() => ForgotPasswordPinVerificationScreen(email: email));
+        showSnackBarMessage(Get.context!, 'Email found', false);
       } else {
         showSnackBarMessage(Get.context!, 'Email not found', true);
       }
@@ -30,7 +29,7 @@ class ForgotPasswordController extends GetxController {
     }
   }
 
-  // Validate email format
+
   String? emailValidator(String value) {
     if (value.trim().isEmpty) {
       return 'Enter your mail address';

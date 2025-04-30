@@ -5,17 +5,15 @@ import 'package:task_management/data/utils/urls.dart';
 import 'package:task_management/ui/widgets/snack_bar_message.dart';
 
 class RegisterController extends GetxController {
-  // Form Controllers
+
   TextEditingController emailController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  // Form validation state
   var registrationInProgress = false.obs;
 
-  // Register user method
   Future<void> registerUser() async {
     registrationInProgress.value = true;
 

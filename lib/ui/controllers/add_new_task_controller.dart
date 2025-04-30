@@ -10,10 +10,9 @@ class AddNewTaskController extends GetxController {
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
-  // Method to add new task
   Future<void> addNewTask(String title, String description) async {
     _addNewTaskInProgress = true;
-    update(); // Notify listeners (UI)
+    update();
 
     Map<String, dynamic> requestBody = {
       "title": title.trim(),
@@ -27,7 +26,7 @@ class AddNewTaskController extends GetxController {
     );
 
     _addNewTaskInProgress = false;
-    update(); // Notify listeners (UI)
+    update();
 
     if (response.isSuccess) {
       _errorMessage = null;
