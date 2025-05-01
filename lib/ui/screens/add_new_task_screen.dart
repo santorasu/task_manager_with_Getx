@@ -38,7 +38,7 @@ class AddNewTaskScreen extends StatelessWidget {
                   SizedBox(height: 8),
                   _buildDescriptionField(),
                   SizedBox(height: 16),
-                  _buildSubmitButton(),
+                  _buildSubmitButton(context),
                 ],
               ),
             ),
@@ -79,14 +79,14 @@ class AddNewTaskScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSubmitButton() {
+  Widget _buildSubmitButton(BuildContext context) {
     return GetBuilder<AddNewTaskController>(
       builder: (controller) {
         return Visibility(
           visible: !controller.addNewTaskInProgress,
           replacement: const CenteredCircularProgressIndicator(),
           child: ElevatedButton(
-            onPressed: _onTapSubmitButton,
+            onPressed: (){_onTapSubmitButton(context);},
             child: const Icon(
               Icons.arrow_circle_right_outlined,
               color: Colors.white,
@@ -98,13 +98,13 @@ class AddNewTaskScreen extends StatelessWidget {
     );
   }
 
-  void _onTapSubmitButton() {
+  void _onTapSubmitButton(context) {
     if (_formKey.currentState!.validate()) {
       _addNewTaskController.addNewTask(
         _titleTTController.text.trim(),
         _descriptionTTController.text.trim(),
       );
-      Get.to(MainBottomNavScreen());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => MainBottomNavScreen()));
     }
   }
 

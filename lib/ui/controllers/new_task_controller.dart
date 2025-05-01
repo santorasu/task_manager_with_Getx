@@ -21,11 +21,14 @@ class NewTaskController extends GetxController {
     final NetworkResponse response = await NetworkClient.getRequest(
       url: Urls.newTaskListUrl,
     );
+    _getNewTaskInProgress = false;
+    update();
     if (response.isSuccess) {
       TaskListModel taskListModel = TaskListModel.fromJson(response.data ?? {});
       _newTaskList = taskListModel.taskList;
       isSuccess = true;
       _errorMessage = null;
+      update();
     } else {
       _errorMessage = response.errorMessage;
     }
