@@ -112,6 +112,8 @@ class _NewTaskScreenState extends State<NewTaskScreen> {
     setState(() {});
     final NetworkResponse response =
     await NetworkClient.getRequest(url: Urls.taskStatusCountUrl);
+    _getStatusCountInProgress = false;
+    setState(() {});
     if (response.isSuccess) {
       TaskStatusCountListModel taskStatusCountListModel =
       TaskStatusCountListModel.fromJson(response.data ?? {});
