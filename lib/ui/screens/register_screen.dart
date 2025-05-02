@@ -3,6 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_management/ui/controllers/register_controller.dart';
+import 'package:task_management/ui/screens/login_screen.dart';
 import 'package:task_management/ui/widgets/centered_circular_progress_indicator.dart';
 import 'package:task_management/ui/widgets/screen_background.dart';
 
@@ -173,10 +174,20 @@ class RegisterScreen extends StatelessWidget {
   void _onTapSubmitButton() {
     if (_formKey.currentState!.validate()) {
       _controller.registerUser();
+      clearFields();
+      Get.to(LoginScreen());
     }
   }
 
   void _onTapSignInButton() {
     Get.back();
+  }
+
+  void clearFields() {
+    _controller.emailController.clear();
+    _controller.firstNameController.clear();
+    _controller.lastNameController.clear();
+    _controller.mobileController.clear();
+    _controller.passwordController.clear();
   }
 }

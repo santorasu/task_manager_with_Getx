@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:task_management/data/service/network_client.dart';
 import 'package:task_management/data/utils/urls.dart';
@@ -5,30 +6,10 @@ import 'package:task_management/ui/screens/forgot_password_pin_verification_scre
 import 'package:task_management/ui/widgets/snack_bar_message.dart';
 
 class ForgotPasswordController extends GetxController {
-  var isLoading = false.obs;
-  var email = ''.obs;
+  final TextEditingController emailTEController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  Future<void> verifyEmail(String email) async {
-    isLoading.value = true;
-
-    String url = Urls.recoverVerifyEmailUrl(email);
-
-    try {
-      NetworkResponse response = await NetworkClient.getRequest(url: url);
-
-      if (response.statusCode == 200) {
-        Get.to(() => ForgotPasswordPinVerificationScreen(email: email));
-        showSnackBarMessage(Get.context!, 'Email found', false);
-      } else {
-        showSnackBarMessage(Get.context!, 'Email not found', true);
-      }
-    } catch (error) {
-      showSnackBarMessage(Get.context!, 'An error occurred. Please try again.', true);
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
+  final RxBool isLoading = false.obs;
 
   String? emailValidator(String value) {
     if (value.trim().isEmpty) {
@@ -41,5 +22,33 @@ class ForgotPasswordController extends GetxController {
       return 'Enter a valid mail';
     }
     return null;
+  }
+
+  Future<void> forgetPasswordEmailVerify() async {
+    if (!formKey.currentState!.validate()) return;
+
+    isLoading.value = true;
+    String email = emailTEController.text.trim();
+    String url = Urls.recoverVerifyEmailUrl(email);
+
+    try {
+      NetworkResponse response = await NetworkClient.getRequest(url: url);
+
+      if (response.statusCode == 200) {
+        Get.off(() => ForgotPasswordPinVerificationScreen(email: email));
+      } else {
+        showSnackBarMessage(Get.context!, 'Email not found', true);
+      }
+    } catch (error) {
+      showSnackBarMessage(Get.context!, 'An error occurred. Please try again.', true);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  @override
+  void onClose() {
+    emailTEController.dispose();
+    super.onClose();
   }
 }

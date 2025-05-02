@@ -43,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 24),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   textInputAction: TextInputAction.next,
                   controller: _emailTEController,
                   keyboardType: TextInputType.emailAddress,
@@ -57,17 +58,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 SizedBox(height: 8),
                 TextFormField(
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   controller: _passwordTEController,
-                  obscureText: !_passwordVisible, // Toggle password visibility
+                  obscureText: !_passwordVisible,
                   decoration: InputDecoration(
                     hintText: 'Password',
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _passwordVisible ? Icons.visibility : Icons.visibility_off, // Toggle between eye icons
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
-                          _passwordVisible = !_passwordVisible; // Toggle password visibility
+                          _passwordVisible =
+                              !_passwordVisible;
                         });
                       },
                     ),
@@ -95,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     );
-                  }
+                  },
                 ),
                 SizedBox(height: 16),
                 Center(
@@ -139,17 +144,19 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _onTapSignInButton() {
-    if (_formKey.currentState!.validate()){
+    if (_formKey.currentState!.validate()) {
       _login();
     }
-
   }
 
   Future<void> _login() async {
-final bool isSuccess = await _loginController.login(_emailTEController.text.trim(), _passwordTEController.text);
+    final bool isSuccess = await _loginController.login(
+      _emailTEController.text.trim(),
+      _passwordTEController.text,
+    );
     if (isSuccess) {
-
-      Navigator.pushAndRemoveUntil(context,
+      Navigator.pushAndRemoveUntil(
+        context,
         MaterialPageRoute(builder: (context) => MainBottomNavScreen()),
         (predicate) => false,
       );
@@ -169,7 +176,7 @@ final bool isSuccess = await _loginController.login(_emailTEController.text.trim
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  ForgotPasswordVerifyEmailScreen(),
+        builder: (context) => ForgotPasswordVerifyEmailScreen(),
       ),
     );
   }

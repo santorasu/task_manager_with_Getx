@@ -2,23 +2,25 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:task_management/data/models/user_model.dart';
 import 'package:task_management/data/service/network_client.dart';
 import 'package:task_management/data/utils/urls.dart';
-import 'package:task_management/ui/screens/main_bottom_nav_screen.dart';
-import 'package:task_management/ui/widgets/snack_bar_message.dart';
 import 'package:task_management/ui/controllers/auth_controller.dart';
+import 'package:task_management/ui/widgets/snack_bar_message.dart';
+import 'package:task_management/ui/screens/main_bottom_nav_screen.dart';
+
+import '../../data/models/user_model.dart';
 
 class UpdateProfileController extends GetxController {
+
   TextEditingController emailController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-
-  bool updateProfileInProgress = false;
+  var isUpdateInProgress = false.obs;
   XFile? pickedImage;
+
 
   void initializeUserData() {
     UserModel userModel = AuthController.userModel!;
@@ -38,8 +40,7 @@ class UpdateProfileController extends GetxController {
   }
 
   Future<void> updateProfile() async {
-    updateProfileInProgress = true;
-    update();
+    isUpdateInProgress.value = true;
 
     Map<String, dynamic> requestBody = {
       "email": emailController.text.trim(),
@@ -63,17 +64,18 @@ class UpdateProfileController extends GetxController {
       body: requestBody,
     );
 
-    updateProfileInProgress = false;
-    update();
+    isUpdateInProgress.value = false;
 
     if (response.isSuccess) {
+
       AuthController.userModel!.firstName = firstNameController.text.trim();
       AuthController.userModel!.lastName = lastNameController.text.trim();
       AuthController.userModel!.mobile = mobileController.text.trim();
+
       showSnackBarMessage(Get.context!, "Profile updated successfully!");
       Get.offAll(() => const MainBottomNavScreen());
     } else {
-      showSnackBarMessage(Get.context!, response.errorMessage, true);
+      showSnackBarMessage(Get.context!, response.errorMessage!, true);
     }
   }
 }

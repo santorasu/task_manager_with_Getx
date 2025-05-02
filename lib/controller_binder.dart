@@ -22,7 +22,7 @@ class ControllerBinder extends Bindings{
     Get.put(AddNewTaskController());
     Get.put(MainBottomNavController());
     Get.put(UpdateProfileController());
-    //Get.put(ForgotPasswordController());
+    Get.put(ForgotPasswordController());
   }
 
 }
